@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "قصة رومانسية",
+    "cardBg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaVEp9KM_JvmiqYJ6f09kNN7dieYy5ivbsKA&s",
+    "storyBg": "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+    "text": "كان يا ما كان، قصة حب بدأت بنظرة..."
+  },
+  {
+    "id": 2,
+    "title": "قصة مغامرات",
+    "cardBg": "https://png.pngtree.com/thumb_back/fh260/background/20241217/pngtree-a-brave-warrior-in-armor-mounted-on-horse-prepared-for-adventure-image_16822499.jpg",
+    "storyBg": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "text": "انطلق البطل في رحلة خطيرة مليئة بالمغامرات..."
+  }
+]
+
