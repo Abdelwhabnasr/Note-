@@ -76,7 +76,7 @@
 </div>
 
 <div class="chat-container" id="chat-container">
-  <div class="message from-character">مرحبًا بك! اكتب كلمة لتغيير أحداث القصة: "حب" أو "خوف".</div>
+  <div class="message from-character">مرحبًا بك! انا يوسف".</div>
 </div>
 
 <div class="input-container">
@@ -109,97 +109,107 @@ function sendMessage(){
     let reply = '';
     let msg = text.toLowerCase();
 
-    // ❤️ الحب والرومانسية
-    if (
-      msg.includes("حب") || msg.includes("بحب") || msg.includes("رومانسي") ||
-      msg.includes("قلب") || msg.includes("مشاعر") || msg.includes("غرام")
-    ) {
-      const loveReplies = [
-        "يوسف: الحب اللي بينا كان صعب… بس حقيقي، ومهما حصل مش هنساه.",
-        "يوسف: كل لحظة حبنا فيها كانت مليانة مشاعر لا توصف.",
-        "يوسف: أنا دايمًا حاسس بالحب اللي بينا وده اللي رجعنيلك."
-      ];
-      reply = loveReplies[Math.floor(Math.random()*loveReplies.length)];
-      localStorage.setItem('storyUpdate','يوسف بيحكي لحظة رومانسية مع سارة.');
-    }
-
-    // 😱 الخوف والرعب
-    else if (
-      msg.includes("خوف") || msg.includes("خايف") || msg.includes("قلق") ||
-      msg.includes("رعب") || msg.includes("مرعب") || msg.includes("توتر")
-    ) {
-      const fearReplies = [
-        "يوسف: أعرف إن المواقف دي كانت تخوفك… بس أنا كنت موجود دايمًا حواليكي.",
-        "يوسف: الخوف طبيعي… بس دايمًا هتلاقيي جنبي.",
-        "يوسف: اللحظات دي صعبة… بس إحنا مع بعض، هنعبرها."
-      ];
-      reply = fearReplies[Math.floor(Math.random()*fearReplies.length)];
-      localStorage.setItem('storyUpdate','يوسف بيحاول يطمن سارة ويهدئها.');
-    }
-
-    // 💔 الحزن والفراق
-    else if (
-      msg.includes("حزن") || msg.includes("حزين") || msg.includes("وجع") ||
-      msg.includes("دموع") || msg.includes("فراق") || msg.includes("ندم")
-    ) {
-      const sadReplies = [
-        "يوسف: أنا عارف إن الفترة اللي فاتت كانت صعبة… وحقيقي آسف على أي وجع حصل.",
-        "يوسف: الحزن اللي حسيتوا ده مؤلم… بس أنا هنا عشانك.",
-        "يوسف: كل دمعة نزلت، أنا كنت موجود وكنت حاسس بيها."
-      ];
-      reply = sadReplies[Math.floor(Math.random()*sadReplies.length)];
-      localStorage.setItem('storyUpdate','يوسف بيتكلم عن اللحظات الحزينة في العلاقة.');
-    }
-
-    // ✈️ السفر / الهروب
-    else if (
-      msg.includes("سفر") || msg.includes("سافرت") || msg.includes("تسافر") ||
-      msg.includes("بعد") || msg.includes("هروب") || msg.includes("رحلة")
-    ) {
+    // 🔹 السفر / البعد
+    if (msg.includes("سافر") || msg.includes("سافرت") || msg.includes("تسافر") || msg.includes("بعد")) {
       const travelReplies = [
-        "يوسف: سافرت لأني كنت محتاج أرتب حياتي، وماكنتش عايز أجرحك.",
-        "يوسف: المسافة بينا كانت صعبة… بس كنت دايمًا فاكر اللحظات الحلوة.",
-        "يوسف: السفر كان امتحان… بس رجعتلك بكل مشاعري."
+        "سافرت لأن وضعي وقتها كان صعب جدًا، وكنت شايف إن السفر الحل الوحيد.",
+        "مكنش قرار سهل، بس كنت حاسس إني لو فضلت مكاني هخسر نفسي.",
+        "الناس فاكرة إني سافرت بإرادتي، بس الحقيقة إني كنت مضغوط من كل اتجاه."
       ];
       reply = travelReplies[Math.floor(Math.random()*travelReplies.length)];
-      localStorage.setItem('storyUpdate','يوسف بيحكي سبب سفره وسبب بعده.');
     }
 
-    // 🏠 الحياة اليومية / ذكريات صغيرة
-    else if (
-      msg.includes("ذكريات") || msg.includes("ضحك") || msg.includes("رسائل") ||
-      msg.includes("صور") || msg.includes("مقهى") || msg.includes("بيت")
-    ) {
-      const memoryReplies = [
-        "يوسف: فاكر كل لحظة قضيناها مع بعض… كل ضحكة وكل كلمة.",
-        "يوسف: الصور والذكريات دي كانت بتفكرني بيكي كل يوم.",
-        "يوسف: المقهى ده مكاننا المفضل… مش هنسى يوم قعدنا فيه."
+    // 🔹 لو القارئ قال: لو بتحبه مكنتش عملت كده
+    else if (msg.includes("بحبها") || msg.includes("عشانه") || msg.includes("ممكنش")) {
+      const loveMistakeReplies = [
+        "الحب لوحده مش دايمًا كفاية، أحيانًا الظروف بتغلب المشاعر.",
+        "كنت بحبها فعلًا، بس الحب وقتها كان عاجز قدام الواقع.",
+        "مش كل اللي بيبعد بيكون خائن، في ناس بتبعد لأنها تايهة."
       ];
-      reply = memoryReplies[Math.floor(Math.random()*memoryReplies.length)];
-      localStorage.setItem('storyUpdate','يوسف يتذكر ذكريات جميلة مع سارة.');
+      reply = loveMistakeReplies[Math.floor(Math.random()*loveMistakeReplies.length)];
     }
 
-    // 🧠 كلمة واحدة أو مش واضحة
-    else if (msg.trim().split(" ").length === 1) {
-      const singleWordReplies = [
-        "يوسف: الكلمة دي وراها قصة… اسأل أكتر عشان تفهمي.",
-        "يوسف: كلمة واحدة بس… محتاجة تفاصيل أكتر.",
-        "يوسف: ممكن توضحي أكتر؟"
+    // 🔹 عن سارة
+    else if (msg.includes("سارة") || msg.includes("هي")) {
+      const saraReplies = [
+        "سارة كانت أضعف مما كنت متخيل، وده خلاني ألوم نفسي بعدين.",
+        "مكنتش فاهم وقتها قد إيه سكوتي هيأذيها.",
+        "أكتر حاجة ندمت عليها إني مسبتش تفسير واضح."
       ];
-      reply = singleWordReplies[Math.floor(Math.random()*singleWordReplies.length)];
+      reply = saraReplies[Math.floor(Math.random()*saraReplies.length)];
     }
 
-    // ❌ أي شيء مش مفهوم
+    // 🔹 عن الأخطاء وقلة الكلام
+    else if (msg.includes("سكوت") || msg.includes("كلام") || msg.includes("توضيح")) {
+      const silenceReplies = [
+        "الغلط الأكبر إني سكت، السكوت هو اللي بوّظ كل حاجة.",
+        "كنت فاكر إن البعد المؤقت أرحم من وعود مش ضامنها.",
+        "ماكنتش مدرك إن قلة الكلام هتتفسر على إنها خيانة."
+      ];
+      reply = silenceReplies[Math.floor(Math.random()*silenceReplies.length)];
+    }
+
+    // 🔹 عن صورة البنت
+    else if (msg.includes("صورة") || msg.includes("البنت") || msg.includes("اخت") || msg.includes("خالتها")) {
+      const photoReplies = [
+        "الصورة اتفهمت غلط، وأنا غلطت إني موضحتش.",
+        "كانت مجرد صورة عائلية، لكن التأخير في التوضيح دمّر الثقة.",
+        "الناس شافت الصورة، بس محدش شاف اللي وراها."
+      ];
+      reply = photoReplies[Math.floor(Math.random()*photoReplies.length)];
+    }
+
+    // 🔹 عن المقهى / اللقاء
+    else if (msg.includes("مقهى") || msg.includes("لقاء") || msg.includes("شوفها") || msg.includes("الحظة")) {
+      const cafeReplies = [
+        "المقهى كان صدمة، ماكنتش متوقع أشوفها بعد كل السنين دي.",
+        "في اللحظة دي حسيت إن الماضي كله رجع مرة واحدة.",
+        "نظرتها كانت مليانة أسئلة أكتر من كلام."
+      ];
+      reply = cafeReplies[Math.floor(Math.random()*cafeReplies.length)];
+    }
+
+    // 🔹 عن الندم
+    else if (msg.includes("ندم") || msg.includes("خطأ") || msg.includes("غلط")) {
+      const regretReplies = [
+        "أيوه ندمت، مش على السفر، لكن على الطريقة.",
+        "في حاجات لو رجع بيا الزمن كنت عملتها غير كده.",
+        "الندم بييجي دايمًا متأخر."
+      ];
+      reply = regretReplies[Math.floor(Math.random()*regretReplies.length)];
+    }
+
+    // 🔹 لو القارئ شكك في كلامه
+    else if (msg.includes("شك") || msg.includes("مش فاهم") || msg.includes("حقيقي")) {
+      const doubtReplies = [
+        "من حقك تشك، القصة من بره شكلها وحش.",
+        "أنا مش بدافع عن نفسي، بحكي اللي حصل.",
+        "مش بطلب تعاطف، بس بطلب فهم."
+      ];
+      reply = doubtReplies[Math.floor(Math.random()*doubtReplies.length)];
+    }
+
+    // 🔹 ردود عامة لأي سؤال
+    else if (msg.includes("إيه حصل") || msg.includes("ليه") || msg.includes("ليه كده")) {
+      const generalReplies = [
+        "القصة مش أبيض وأسود.",
+        "كل واحد شاف جزء، محدش شاف الصورة كاملة.",
+        "اللي حصل كان نتيجة تراكمات، مش قرار واحد."
+      ];
+      reply = generalReplies[Math.floor(Math.random()*generalReplies.length)];
+    }
+
+    // 🔹 أي كلمة واحدة أو غير واضحة
     else {
       const unknownReplies = [
-        "يوسف: مش فاهم قصدك… ممكن توضحي أكتر؟",
-        "يوسف: مش واضح لي… قلّي بطريقة تانية.",
-        "يوسف: محتاج أعرف أكتر عن اللي بتحكيه."
+        "مش فاهم قصدك… ممكن توضحي بطريقة تانية؟",
+        "حاول تشرحي أكتر… عايز أفهم قصدك بالضبط",
+        "مش واضح… قولّي بالضبط قصدك إيه."
       ];
       reply = unknownReplies[Math.floor(Math.random()*unknownReplies.length)];
     }
 
-    addMessage(reply,'from-character');
+    addMessage("يوسف: " + reply,'from-character');
   },1000);
 }
 
@@ -211,6 +221,7 @@ document.getElementById('userInput').addEventListener('keydown', function(e){
 
 </body>
 </html>
+
 
 
 
