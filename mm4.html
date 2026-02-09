@@ -107,86 +107,79 @@ function sendMessage(){
 
   setTimeout(()=>{
     let reply = '';
-    // تحديث نص القصة في mm2.html حسب الكلمات
-    function sendMessage() {
-  let input = document.getElementById("msg");
-  let text = input.value;
-  let reply = "";
+    let msg = text.toLowerCase();
 
-  // 👇 هنا تحط الكود الجديد
-  let msg = text.toLowerCase();
+    // ❤️ الحب
+    if (
+      msg.includes("حب") ||
+      msg.includes("بحب") ||
+      msg.includes("رومانسي") ||
+      msg.includes("مشاعر") ||
+      msg.includes("قلب")
+    ) {
+      reply = 'بطل القصة: الحب ساعات بيغيّر كل حاجة… وأنا حاسس بده دلوقتي ❤️';
+      localStorage.setItem(
+        'storyUpdate',
+        'بطل القصة اقترب بهدوء، وصوته كان مليان إحساس.'
+      );
+    }
 
-  if (
-    msg.includes("حب") ||
-    msg.includes("بحب") ||
-    msg.includes("رومانسي") ||
-    msg.includes("مشاعر") ||
-    msg.includes("قلب")
-  ) {
-    reply = 'القصة أصبحت رومانسية ❤️';
-    localStorage.setItem(
-      'storyUpdate',
-      'تحت ضوء القمر، كان الكلام بسيط لكن المشاعر كانت واضحة، وبطل القصة اقترب بهدوء.'
-    );
-  }
+    // 😱 الخوف
+    else if (
+      msg.includes("خوف") ||
+      msg.includes("خايف") ||
+      msg.includes("مرعب") ||
+      msg.includes("رعب") ||
+      msg.includes("قلق")
+    ) {
+      reply = 'بطل القصة: الخوف مش ضعف… الخوف إحساس.';
+      localStorage.setItem(
+        'storyUpdate',
+        'بطل القصة وقف مكانه، عينه كانت بتراقب كل حركة.'
+      );
+    }
 
-  else if (
-    msg.includes("خوف") ||
-    msg.includes("خايف") ||
-    msg.includes("مرعب") ||
-    msg.includes("رعب") ||
-    msg.includes("قلق")
-  ) {
-    reply = 'القصة أصبحت مرعبة 😱';
-    localStorage.setItem(
-      'storyUpdate',
-      'الهواء بقى تقيل، وخطوات غريبة قربت، وبطل القصة ظهر بنظرة مخيفة.'
-    );
-  }
+    // 💔 الحزن
+    else if (
+      msg.includes("حزن") ||
+      msg.includes("حزين") ||
+      msg.includes("وجع") ||
+      msg.includes("دموع") ||
+      msg.includes("فراق")
+    ) {
+      reply = 'بطل القصة: في وجع ما بيتقالش… بس بيتحس.';
+      localStorage.setItem(
+        'storyUpdate',
+        'بطل القصة سكت شوية، وكمل بصوت واطي.'
+      );
+    }
 
-  else if (
-    msg.includes("حزن") ||
-    msg.includes("حزين") ||
-    msg.includes("وجع") ||
-    msg.includes("دموع") ||
-    msg.includes("فراق")
-  ) {
-    reply = 'القصة أصبحت حزينة 💔';
-    localStorage.setItem(
-      'storyUpdate',
-      'الصمت ملأ المكان، والذكريات رجعت توجع أكتر من الأول.'
-    );
-  }
+    // ✈️ السفر / الهروب
+    else if (
+      msg.includes("سفر") ||
+      msg.includes("سافرت") ||
+      msg.includes("تسافر") ||
+      msg.includes("هروب") ||
+      msg.includes("بعد")
+    ) {
+      reply = 'بطل القصة: السفر كان هروب أكتر منه حلم.';
+      localStorage.setItem(
+        'storyUpdate',
+        'بطل القصة بص بعيد، كأنه فاكر طريق قديم.'
+      );
+    }
 
-  else if (
-    msg.includes("سفر") ||
-    msg.includes("سافرت") ||
-    msg.includes("تسافر") ||
-    msg.includes("هروب") ||
-    msg.includes("بعد")
-  ) {
-    reply = 'القصة اتغيرت بالبعد ✈️';
-    localStorage.setItem(
-      'storyUpdate',
-      'الطريق كان طويل، وكل خطوة كانت بتبعدك أكتر عن اللي بتحبه.'
-    );
-  }
+    // 🧠 كلمة واحدة فقط
+    else if (msg.trim().split(" ").length === 1) {
+      reply = 'بطل القصة: الكلمة الواحدة وراها حكاية… كمّل.';
+    }
 
-  else if (msg.trim().split(" ").length === 1) {
-    reply = 'الكلمة الواحدة وراها حكاية… كمّل.';
-  }
+    // ❌ مش مفهوم
+    else {
+      reply = 'بطل القصة: مش فاهم قصدك… جرّب كلمة تعبّر عن إحساسك.';
+    }
 
-  else {
-    reply = 'مش فاهم قصدك… جرّب كلمة تعبّر عن إحساسك.';
-  }
-
-  // 👇 عرض الرد في الدردشة (سيبه زي ما هو عندك)
-  showReply(reply);
-
-  input.value = "";
-}
-
-    addMessage('بطل القصة يرد: "' + reply + '"','from-character');
+    addMessage(reply,'from-character');
   },1000);
 }
 
@@ -198,4 +191,5 @@ document.getElementById('userInput').addEventListener('keydown', function(e){
 
 </body>
 </html>
+
 
