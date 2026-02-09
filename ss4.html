@@ -4,49 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>قصة رعب - دردشة</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
     font-family: 'Cairo', sans-serif;
     margin: 0; padding: 0;
-    background: url('https://png.pngtree.com/thumb_back/fh260/background/20220801/pngtree-horror-woman-ghost-creepy-standing-at-the-house-photo-image_33039494.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background:black;
     color: #E0E0E0;
     direction: rtl;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
   }
-  header {
-    background: rgba(0,0,0,0.6);
-    padding: 20px;
-    text-align: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  .story-info {
-    max-width: 600px;
-    margin: 20px auto;
-    background: rgba(30,30,30,0.8);
-    border-radius: 15px;
-    padding: 15px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-  }
-  .story-info img {
-    width: 120px; height: 120px; border-radius: 15px; object-fit: cover;
-  }
-  .story-info div { display:flex; flex-direction: column; gap:5px; }
-  .story-info h2 { margin:0; color:#FFD700; }
-  .story-info p { margin:0; color:#CCCCCC; }
-
   .chat-container {
     flex: 1; display: flex; flex-direction: column; padding: 20px;
     max-width: 600px; margin:10px auto; gap:15px;
-    overflow-y: auto; background: rgba(0,0,0,0.4); border-radius: 15px;
+    overflow-y: auto; background: rgba(0,0,0,0.8); border-radius: 15px;
   }
-
   .message {
     max-width: 70%; padding: 10px 15px; border-radius: 15px;
     word-wrap: break-word; font-size: 16px; line-height: 1.4;
@@ -58,36 +31,26 @@
     display:flex; justify-content:center; align-items:center; gap:10px;
     padding:10px 20px; max-width:600px; margin:0 auto 20px; background: rgba(0,0,0,0.6); border-radius:15px;
   }
-  .input-container input { flex:1; padding:10px 15px; border-radius:10px; border:none; font-size:16px; }
+  .input-container input { flex:1; padding:10px 15px; border-radius:10px; border:none; font-size:16px; color:white; background:black; }
   .input-container button { padding:10px 20px; border-radius:10px; border:none; background: rgba(255,215,0,0.8); color:#000; font-weight:bold; cursor:pointer; }
-  .input-container button:hover { transform: translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.4);}
 </style>
 </head>
 <body>
 
-<header>قصة رعب</header>
-
-<div class="story-info">
-  <img src="https://png.pngtree.com/thumb_back/fh260/background/20220801/pngtree-horror-woman-ghost-creepy-standing-at-the-house-photo-image_33039494.jpg" alt="قصة رعب">
-  <div>
-    <h2>قصة رعب</h2>
-    <p>رعب الكثير من المفاجآت.</p>
-  </div>
-</div>
-
-<div class="chat-container" id="chat-container">
-  <div class="message from-character">مرحبًا بك! ".</div>
-</div>
+<div class="chat-container" id="chat-container"></div>
 
 <div class="input-container">
   <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
   <button onclick="sendMessage()">إرسال</button>
 </div>
 
-<button style="margin:10px auto; display:block; padding:10px 20px; border:none; border-radius:10px; background:#FFD700; color:#000; cursor:pointer;" onclick="window.location.href='mm2.html'">العودة لـلقصه</button>
-
 <script>
 const chat = document.getElementById('chat-container');
+let userName = ""; 
+let askedName = false; 
+
+// أول رسالة: يسأل الاسم
+addMessage("…مين اسمك اي؟",'from-character');
 
 function addMessage(text, type){
   const msg = document.createElement('div');
@@ -106,69 +69,34 @@ function sendMessage(){
   input.value='';
 
   setTimeout(()=>{
-    let reply = '';
-    let msg = text.toLowerCase();
-    let hour = new Date().getHours();
+    if(!askedName){
+      userName = text;
+      askedName = true;
 
-    // 🔥 لو سأل مين
-    if (msg.includes("مين") || msg.includes("انت")) {
-      const whoReplies = [
-        "إنت قرأت عني… يبقى عارفني.",
-        "أنا اللي القصة كانت بتحذرك منه.",
-        "سؤال متأخر شوية مش كده؟"
-      ];
-      reply = whoReplies[Math.floor(Math.random()*whoReplies.length)];
+      // بداية الحوار المباشر مع المستخدم
+      addMessage(`تمام… ${userName}، جه الوقت تحس باللي حواليك.`, 'from-character');
+      setTimeout(()=>{ addMessage(`${userName}… الظلام مش مجرد غياب نور…`, 'from-character'); },1000);
+      setTimeout(()=>{ addMessage(`في صوت بعيد… لكن كأنه قريب منك، حسيت بيه؟`, 'from-character'); },2500);
+      setTimeout(()=>{ addMessage(`${userName}… كل حاجة حواليك مش زي ما كانت… ركز كويس.`, 'from-character'); },4000);
+      return;
     }
 
-    // 🔥 لو قال خايف
-    else if (msg.includes("خايف") || msg.includes("رعب")) {
-      const fearReplies = [
-        "الخوف معناه إنك بدأت تحس بيا.",
-        "متخافش… أنا لسه موصلتش ليك.",
-        "الخوف الحقيقي بيبدأ في النوم."
-      ];
-      reply = fearReplies[Math.floor(Math.random()*fearReplies.length)];
-    }
+    // بعد معرفة الاسم: ردود مفتوحة وغامضة
+    const hour = new Date().getHours();
+    const replies = [
+      `${userName}… هل حاسس بحاجة غريبة؟`,
+      `متستغربش لو حسيت بشيء يلمسك وانت مش شايفه.`,
+      `أسمع؟ في حد بيتابعك دلوقتي، ${userName}.`,
+      `لو حاولت تتجاهل الصوت… هعرف، ${userName}.`,
+      `الليل كله بيترقب ردك، ${userName}.`,
+      `الظلال حواليك… تلاحظها؟`,
+      hour >= 2 && hour <= 4 ? `الوقت ده المفضل ليا، ${userName}.` : `استناني لما تنام، ${userName}.`
+    ];
 
-    // 🔥 لو ذكر القصة
-    else if (msg.includes("قصة") | msg.includes("الروايا") | msg.includes("قصه")) {
-      const storyReplies = [
-        "هي كانت فاكرة إنها قصة برضو.",
-        "كلهم بيقولوا قصة في الأول.",
-        "القصة بتبدأ لما تخلص قراية."
-      ];
-      reply = storyReplies[Math.floor(Math.random()*storyReplies.length)];
-    }
+    let reply = replies[Math.floor(Math.random()*replies.length)];
+    addMessage(reply,'from-character');
 
-    // 🔥 قرآن/تحصين
-    else if (msg.includes("قرآن") || msg.includes("شيخ")) {
-      const ruqyaReplies = [
-        "مش كل اللي نجّى غيرك هينجيك.",
-        "جرب… بس متبطلش قراية.",
-        "إنت بتفكر في الحماية دلوقتي؟ متأخر."
-      ];
-      reply = ruqyaReplies[Math.floor(Math.random()*ruqyaReplies.length)];
-    }
-
-    // 🔥 ردود مرعبة عامة
-    else {
-      const scaryReplies = [
-        "على فكرة… في حد وراك.",
-        "متلفتش فجأة… خليك مكمل قراية.",
-        "أنا أقرب مما تتخيل.",
-        "لو النور عندك يطفي متستغربش.",
-        "هشوفك الليلة.",
-        "مش صدفة إنك هنا لوحدك.",
-        hour >= 2 && hour <= 4 
-          ? "الوقت ده المفضل ليا." 
-          : "استناني لما تنام."
-      ];
-      reply = scaryReplies[Math.floor(Math.random()*scaryReplies.length)];
-    }
-
-    addMessage("علي: " + reply,'from-character');
-
-  },1000);
+  },800);
 }
 
 // إرسال بالضغط على Enter
@@ -176,20 +104,15 @@ document.getElementById('userInput').addEventListener('keydown', function(e){
   if(e.key==='Enter'){ sendMessage(); }
 });
 
-// 👻 رسائل تلقائية تخض القارئ
-setTimeout(()=>{
-  addMessage("علي: متقفلش الصفحة… أنا لسه بكلمك.", 'from-character');
+// رسائل إضافية لتعزيز الغموض
+setTimeout(()=>{ 
+  if(askedName) addMessage(`${userName}… الصفحة دي مش عادية، حسيت بحاجة؟`, 'from-character'); 
 },30000);
 
-setTimeout(()=>{
-  addMessage("علي: إنت لوحدك دلوقتي صح؟", 'from-character');
+setTimeout(()=>{ 
+  if(askedName) addMessage(`${userName}… إنت لوحدك دلوقتي… ومش هتعرف تخرج.`, 'from-character'); 
 },60000);
 
 </script>
-
 </body>
 </html>
-
-
-
-
