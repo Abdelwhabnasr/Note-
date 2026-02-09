@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>قصة رعب - دردشة</title>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قصة رعب - دردشة</title>
+
+<!-- هنا تحط الـ CSS بتاعك -->
 <style>
   body {
     font-family: 'Cairo', sans-serif;
@@ -18,8 +26,12 @@
   }
   .chat-container {
     flex: 1; display: flex; flex-direction: column; padding: 20px;
-    max-width: 600px; margin:10px auto; gap:15px;
+    width: 90%;        /* يخلي الدردشة responsive تلقائي */
+    max-width: 600px;
+    margin:10px auto; gap:15px;
     overflow-y: auto; background: rgba(0,0,0,0.8); border-radius: 15px;
+    height: 70vh;     /* ارتفاع نسبي من الشاشة */
+    min-height: 300px; /* أقل ارتفاع */
   }
   .message {
     max-width: 70%; padding: 10px 15px; border-radius: 15px;
@@ -30,11 +42,29 @@
 
   .input-container {
     display:flex; justify-content:center; align-items:center; gap:10px;
-    padding:10px 20px; max-width:600px; margin:0 auto 20px; background: rgba(0,0,0,0.6); border-radius:15px;
+    padding:10px 20px; width:90%; max-width:600px; margin:0 auto 20px; background: rgba(0,0,0,0.6); border-radius:15px;
   }
   .input-container input { flex:1; padding:10px 15px; border-radius:10px; border:none; font-size:16px; color:white; background:black; }
   .input-container button { padding:10px 20px; border-radius:10px; border:none; background: rgba(255,215,0,0.8); color:#000; font-weight:bold; cursor:pointer; }
 </style>
+
+</head>
+<body>
+
+<div class="chat-container" id="chat-container"></div>
+
+<div class="input-container">
+  <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
+  <button onclick="sendMessage()">إرسال</button>
+</div>
+
+<script>
+// هنا تحط كود الجافاسكربت بتاع الجن اللي عملناه قبل كده
+</script>
+
+</body>
+</html>
+
 </head>
 <body>
 
