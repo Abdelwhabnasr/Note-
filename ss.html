@@ -127,22 +127,11 @@
 </div>
 
 <script>
-// عند تحميل الصفحة، تحقق إذا في نص متغير من الدردشة
-const storyText = document.getElementById('storyText');
-let updated = localStorage.getItem("storyUpdate");
-if(updated){
-  storyText.innerText = updated;
-}
 
-// تحديث مباشر لو المستخدم غيّر النص من صفحة الدردشة
-window.addEventListener('storage', function(e){
-  if(e.key === "storyUpdate"){
-    storyText.innerText = e.newValue;
-  }
-});
 </script>
 
 </body>
 </html>
+
 
 
