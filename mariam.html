@@ -11,14 +11,12 @@ async function sendToMariam() {
   const userMsg = msgInput.value.trim();
   if (!userMsg) return;
 
-  // عرض رسالة المستخدم
   chat.innerHTML += `<div style="text-align:right; background:#444; color:#fff; padding:8px; border-radius:10px; margin:5px;">${userMsg}</div>`;
   msgInput.value = "";
   chat.scrollTop = chat.scrollHeight;
 
   try {
-    // حط هنا رابط مشروعك على Vercel
-    const res = await fetch("https://اسم-مشروعك.vercel.app/api/chat", {
+    const res = await fetch("https://note-five-chi.vercel.app/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: userMsg })
@@ -26,7 +24,6 @@ async function sendToMariam() {
 
     const data = await res.json();
 
-    // عرض رد مريم
     chat.innerHTML += `<div style="text-align:left; background:#f3c5d6; color:#000; padding:8px; border-radius:10px; margin:5px;">${data.reply}</div>`;
     chat.scrollTop = chat.scrollHeight;
 
