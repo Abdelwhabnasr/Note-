@@ -3,26 +3,19 @@ async function sendMessage() {
     const message = msgInput.value.trim();
     if (!message) return;
 
-    addMessage("user", message);
+    addMessage("user", message); // يظهر رسالة المستخدم
     msgInput.value = "";
 
-    try {
-        // API مجاني من HuggingFace
-        const response = await fetch("https://api-inference.huggingface.co/models/gpt2", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ inputs: message })
-        });
+    // مؤقتًا: رد تلقائي للبوت لعرض الإرسال
+    const replies = [
+        "مرحبًا! كيف أساعدك اليوم؟",
+        "تمام، فهمت رسالتك.",
+        "آسف، لم أفهم ذلك، جرب صياغة أخرى."
+    ];
+    const reply = replies[Math.floor(Math.random() * replies.length)];
 
-        const data = await response.json();
-        let reply = data[0]?.generated_text || "آسف، لم أفهم الرسالة";
-
-        addMessage("bot", reply);
-
-    } catch (err) {
-        console.error(err);
-        addMessage("bot", "حدث خطأ في الاتصال بالـ API");
-    }
+    // عرض الرد بعد ثانيتين
+    setTimeout(() => addMessage("bot", reply), 1000);
 }
 
 function addMessage(sender, text) {
