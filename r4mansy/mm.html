@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تطبيق قصيتك</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://images.unsplash.com/photo-1660244099620-72268ca85fc5?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+      background-size: cover;
+      color: #E0E0E0;
+      direction: rtl;
+    }
+
+    header {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      text-align: right;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    }
+
+    .story-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .story-card {
+      display: flex;
+      align-items: center;
+      background: rgba(30,30,30,0.8);
+      border-radius: 15px;
+      padding: 15px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      text-decoration: none;
+    }
+
+    .story-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+    }
+
+    .story-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 15px;
+      margin-left: 20px;
+      object-fit: cover;
+      filter: brightness(1.2);
+    }
+
+    .story-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .story-info h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #000000;
+    }
+
+    .story-info p {
+      margin: 5px 0 0;
+      font-size: 15px;
+      color: #CCCCCC;
+    }
+
+    /* الثلاث خانات الرئيسية */
+    .main-actions {
+      display: flex;
+      justify-content: space-around;
+      margin: 30px 20px;
+      text-align: center;
+    }
+
+    .main-actions a.action-card {
+      text-decoration: none; /* يشيل الخط تحت النص */
+      color: inherit; /* يخلي لون النص مثل البطاقة */
+    }
+
+    .action-card {
+      background: rgba(50,50,50,0.8);
+      border-radius: 15px;
+      padding: 20px;
+      flex: 1;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .action-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+    }2
+
+    .action-card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+      filter: brightness(1.2);
+    }
+
+    .action-card span {
+      display: block;
+      color: #000000;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+  a { text-decoration: none; color: inherit; }
+
+
+  </style>
+</head>
+<body>
+
+  <header>تطبيق قصيتك</header>
+
+  <!-- القائمة الرئيسية للقصص -->
+  
+
+  <div class="story-card" onclick="window.location.href='mm2.html'">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaVEp9KM_JvmiqYJ6f09kNN7dieYy5ivbsKA&s" alt="قصة رومانسية">
+    <div class="story-info">
+      <h3>قصة رومانسية</h3>
+      <p>رومانسية وحب مثير</p>
+    </div>
+  </div>  
+
+    
+
+  <!-- الثلاث خانات الرئيسية -->
+  <div class="main-actions">
+    <a href="https://www.facebook.com/abdelwhab.nasser.918146" target="_blank" class="action-card">
+        <img src="https://img.icons8.com/?size=100&id=38526&format=png&color" alt="المنشئ">
+        <span>المنشئ</span>
+    </a>
+    <div class="action-card" onclick="window.location.href='index.html'">
+      <img src="https://img.icons8.com/?size=100&id=25007&format=png&color" alt="المزيد">
+      <span>المزيد من القصص</span>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
