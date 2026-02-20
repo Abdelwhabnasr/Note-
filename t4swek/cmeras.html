@@ -3,176 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>قصة رعب</title>
+<title>دردشة</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
     font-family: 'Cairo', sans-serif;
-    margin: 0;
     padding: 0;
-    background: url('https://images.stockcake.com/public/b/5/6/b561ca1c-b149-4ed1-a083-b9eb2c262ea0_large/mysterious-empty-room-stockcake.jpg') no-repeat center center fixed;
+    background: url('https://images.stockcake.com/public/b/5/6/b561ca1c-b149-4ed1-a083-b9eb2c262ea0_large/mysterious-empty-room-stockcake.jp') no-repeat center center fixed;
     background-size: cover;
     color: #E0E0E0;
     direction: rtl;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
-
   header {
     background: rgba(0,0,0,0.6);
     padding: 20px;
-    text-align: center;
+    text-align: right;
     font-size: 28px;
     font-weight: bold;
   }
-
-  .container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  margin: 10px auto;
-  gap: 15px;
-  overflow-y: auto;
-  background: rgba(0,0,0,0.8);
-  border-radius: 15px;
-  
-
-  }
-
-  .story-title {
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #FFD700;
-  }
-
-  .story-content {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #CCCCCC;
-    white-space: pre-wrap; /* يحافظ على الأسطر الجديدة */
-    margin-bottom: 30px;
-  }
-
-  .buttons-container {
+  .story-info {
+    max-width: 600px;
+    margin: 20px auto;
+    background: rgba(30,30,30,0.8);
+    border-radius: 15px;
+    padding: 15px;
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+  }
+  .story-info img {
+    width: 120px; height: 120px; border-radius: 15px; object-fit: cover;
+  }
+  .story-info div { display:flex; flex-direction: column; gap:5px; }
+  .story-info h2 { margin:0; color:#FFD700; }
+  .story-info p { margin:0; color:#CCCCCC; }
+
+  .chat-container {
+    flex: 1; display: flex; flex-direction: column; padding: 20px;
+    max-width: 600px; margin:10px auto; gap:15px;
+    overflow-y: auto; background: rgba(0,0,0,0.4); border-radius: 15px;
   }
 
-  button {
-    padding: 15px 30px;
-    border: none;
-    border-radius: 10px;
-    background: #FFD700;
-    color: #000;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+  .message {
+    max-width: 70%; padding: 10px 15px; border-radius: 15px;
+    word-wrap: break-word; font-size: 16px; line-height: 1.4;
   }
+  .from-character { background: rgba(255,215,0,0.8); color:#000; align-self:flex-start; }
+  .from-user { background: rgba(50,50,50,0.8); color:#FFD700; align-self:flex-end; }
 
-  button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  .input-container {
+    display:flex; justify-content:center; align-items:center; gap:10px;
+    padding:10px 20px; max-width:600px; margin:0 auto 20px; background: rgba(0,0,0,0.6); border-radius:15px;
   }
+  .input-container input { flex:1; padding:10px 15px; border-radius:10px; border:none; font-size:16px; }
+  .input-container button { padding:10px 20px; border-radius:10px; border:none; background: rgba(255,215,0,0.8); color:#000; font-weight:bold; cursor:pointer; }
+  .input-container button:hover { transform: translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.4);}
 </style>
 </head>
 <body>
 
-<header> تشوفي اجتماعي</header>
+<header>روايا المـيراث</header>
 
-<div class="container">
-  <!-- عنوان القصة -->
-  <div class="story-title" style="text-align:center;" >  المـيراث كـاملة</div>
-
-  <!-- نص القصة -->
-  <div class="story-content" id="storyText">
-    ت تحليل DNA علشان تمسحني من ورث أبويابس لما المحامي فتح النتيجة عينه ما جاتش علي اتثبتت فيها هي……!!!
-    عرفت خبر ۏفاة والدي من إيميل بعته المحامي.. لا مكالمة تليفون ولا حد من القرايب كلف خاطره يكلمني. مجرد رسالة رسمية باردة وصلتني في شقتي في القاهرة يوم تلات الصبح بتقولي إن الحاج إسماعيل رجب اتوفى في المنصورة وإن حضوري مطلوب لجلسة فتح الوصية.
-    بقالي ١٨ سنة معتبتش البيت ده.
-    طول طفولتي كانت مرات أبويا سعاد تقعد قدامي على السفرة وتوشوش والدي بلؤم
-    غريبة يا إسماعيل البنت دي لا شبهك ولا واخدة منك حاجة خالص!…
-    كانت بتقول الكلام ده كأني شفافة مش موجودة.
-    
-    وأختي الصغيرة هالة كانت تضحك بسخرية وتسميني بنت الشوارع اللي بابا أشفق عليها….كانت صورهم هما التلاتة مالية الحيطان.. العيلة المثالية اللي أنا ماليش مكان فيها. وفي سن سبعتاشر سنة لمېت هدومي في شنطة واحدة ومشيت من البيت الكبير ده وأنا عارفة إن محدش هيفتقدني…..
-    دلوقتي أنا راجعة.. دخلت بالعربية من البوابة والۏجع بيحاصرني مع كل شجرة كنت بتسلقها زمان. سعاد  كانت واقفة ورا شباك الدور التاني ملامحها مكنتش ملامح أرملة حزينة كانت ملامح حد مستني عاصفة هتهب.
-    جوه البيت الريحة زي ما هي.. ريحة البخور المختلطة ببرفان غالي وخانق. القرايب متجمعين في الأركان والهمس بيزيد أول ما عيني تيجي في عينهم.
-    دي جاية عشان الورث بس سمعت واحدة بتقول.
-    ولا سألت فيه وهو عايش التانية ردت بسم.
-    دخلت هالة الصالون بكبرياء لابسة فستان أسود شيك وكأنها ملكة المكان. بصت لي بقرف وقالت كاميليا.. والله فيكي الخير إنك جيتي.
-    في الچنازة قعدوني في آخر صف ورا قرايب من الدرجة العاشرة. الصفوف الأولى كانت محجوزة للعيلة بس. لما فتحت كتيب العزاء لقيت اسمي مكتوب في الآخر خالص تحت جملة وأقارب آخرون…
-    وقفت سعاد على المنصة تتكلم عن زوجها المخلص وعن بنتهم الوحيدة هالة وعن البيت اللي بنوه مع بعض.. منطقتش اسمي ولا مرة. وقفت قدام خشبة أبويا ومحستش بحاجة.. مجرد فراغ بارد وتساؤل
-    أنا كنت مين بالنسبة له
-    بعد العزاء وأنا خارجة لمست إيدي دادة رقية الخادمة القديمة اللي كانت بتحبني وحطت في إيدي ورقة مطبقة وهمست
-    مكتب الحاج إسماعيل.. الدور التالت.. كان عاوزك تشوفي حاجة.. ومعايا المفتاح.
-    بالليل والبيت دوشة بالناس طلعت للدور اللي كان ممنوع عليا أدخله زمان. جوه المكتب المقفول اكتشفت الحقيقة.. والدي كان متابع كل لحظة في حياتي في القاهرة.  صور ليا مقالات كتبتها باسمي وجواب بخط إيده المهزوز مقدرتش أكمل قرايته من كتر العياط.
-    في اللحظة دي عرفت إن الرواية اللي سعاد عاشت تقنعني بيها سنين كانت مجرد سيناريو مكتوب بدقة عشان يكرهوني في
-    أبويا ويكرهوه فيا…..
-    بعد يومين الكل اتجمع في الصالون عشان الوصية.
-    هالة وقفت عدلت فستانها وقالت بصوت عالي قبل ما المحامي يفتح الوصية عندي شرط. من حقنا نتأكد إن كاميليا هي فعلا بنت بابا.. لازم تعمل تحليل DNA لو عايزة تاخد مليم واحد…
-    الصالون سكت تماما وبعدين بدأت همسات التأييد. بصيت لسعاد لقيتها بتهز رأسها بموافقة وكأن ده المطلب الطبيعي.
-    كاميليا القديمة كانت هتتكسف أو ټعيط بس أنا بصيت في عين أختي وقلت ببرود موافقة..  بس الوصية بتقول الميراث للأبناء البيولوجيين فقط.. فلو هنعمل تحليل يبقى الكل يعمله عشان نضمن إن مفيش حد غريب هياخد حق مش حقه.
-    هالة ضحكت بسخرية أنا معنديش مشكلة.. أنا واثقة من نفسي.
-    في اللحظة دي شفتها.. لمحة خوف وړعب حقيقي في عين سعاد.. مش ڠضب ده كان ړعب شخص انفكت عقدة سره.
-    بعد أسبوع كنا في مكتب المحامي….
-    
-    سعاد قاعدة في النص بكبرياء مزيف وهالة جنبها بس بعيد عنها شوية وأنا قاعدة قصادهم بهدوء لأول مرة في حياتي.
-    المحامي عدل نضارته وقال
-    الحاج إسماعيل وضع شرط خاص في وصيته.. التركة تتقسم فقط على أبنائه الشرعيين من صلبه. وبناء على طلبكم أجرينا التحاليل للجميع.. والنتائج وصلت….
-    فتح الظرف.. الصمت كان تقيل لدرجة إننا كنا سامعين صوت الساعة….
-    
-    بص في الورقة.. وبعدين عينه مجتش عليا خالص..
-    عينه راحت لهالة ونظرة الصدمة والذهول خلت الابتسامة تتمسح من على وش أختي للأبد…..
-    
-    الفصل الأخير الحقيقة العاړية
-    في مكتب الأستاذ رفعت في وسط البلد كان السكون مرعب. سعاد قاعدة وفاردة ضهرها وكأنها لسه ماسكة زمام الأمور وهالة جنبها بتبص لي بتحدي وأنا حضڼي الفايل اللي فيه عمر أبويا التاني اللي عيشه في السر.
-    الأستاذ رفعت فتح المظروف ببطء صوته كان هادي ومسموع في كل ركن
-    نتيجة التحليل بالنسبة للآنسة كاميليا إسماعيل رجب.. تطابق بنسبة 99 9.. هي ابنة الحاج إسماعيل شرعا وقانونا ومن صلبه.
-    سعاد خدت نفس طويل بارتياح مزيف وكأنها بتقول عادي عارفين لكن الأستاذ رفعت مكملش كلامه وبص في الورقة التانية  وهنا ملامحه اتغيرت تماما.. بص لهالة نظرة فيها شفقة ممزوجة بذهول.
-    أما بالنسبة للآنسة هالة.. فالنتيجة أظهرت عدم وجود أي صلة بيولوجية بينها وبين المتوفى الحاج إسماعيل.. مفيش أي تطابق في البصمة الوراثية.
-    الصالون اتقلب في ثانية. هالة وقفت فجأة الكرسي اترمى وراها وصوت صړختها هز المكان
-    كڈب! ده مستحيل! أكيد في غلط في المعمل أكيد كاميليا رشت حد.. يا ماما قولي لهم إنهم كدابين! قولي حاجة!
-    سعاد وشها بقى لونه زي الرماد ملامحها اتشفت وبانت الحقيقة اللي كانت مدارياها ورا أطنان من المكياج والكبرياء. حاولت تلم الموضوع وقالت بصوت مهزوز ده فخ.. الأستاذ رفعت طول عمره بيميل
-    لكاميليا أكيد الورق ده متزور!
-    هنا جه دوري.. فتحت الفايل اللي في حضڼي وطلعت منه الورقة اللي قلبت الطاولة
-    تزوير طب والتحليل ده كمان تزوير ده تحليل من اتناشر سنة الحاج إسماعيل عمله لما هالة احتاجت زرع نخاع وهو راح يتبرع واكتشف إنه مش الأب.. ومن يومها وهو عارف الحقيقة كاملة.
-    بصيت لسعاد وقلت لها بحدة
-    اتناشر سنة يا سعاد هانم وأبويا عارف إنك خدعتيه وعارف إن البنت اللي كان بيحبها ومسميها على اسم أمه مش بنته.. وعارف كمان إنك طلقتي منه رسميا من خمس سنين في السر وفضل سايبك في البيت بس عشان خاېف على صدمة هالة!
-    هالة بصت لأمها بذهول مرعب ماما.. إنتي كنت عارفة إنتي كنت عارفة إني مش بنته كنت بتعايري كاميليا بإنها مش شبهه وإنتي عارفة إن أنا اللي غريبة عن البيت ده
-    سعاد حاولت تقرب منها وتطبطب عليها يا بنتي أنا كنت بحميكي.. كنت عايزة أضمن مستقبلك..
-    هالة زقت إيدها باڼهيار تحميني إنتي دمرتيني! خليتيني أعيش سنين بظلم أختي وأنا اللي معنديش أصل في المكان ده! أنا عشت كڈبة كبيرة بسببك!
-    الأستاذ رفعت قطع الدراما دي كلها وصوته رجع رسمي وقاسې
-    يا مدام سعاد.. الحاج إسماعيل ساب جواب أخير بيأكد فيه إن كل مليم وكل شبر في أملاكه والبيت اللي إنتوا قاعدين فيه  يؤول شرعا وقانونا لابنته الوحيدة كاميليا. أما أنتم.. فمالكمش غير هدومكم اللي عليكم وتخلوا البيت في ظرف 24 ساعة.
-    سعاد وقعت على الكرسي وهي مش مصدقة إن السيناريو اللي كتبته بذكاء سنين انهار في لحظة بسبب ورقة. أما هالة فكانت بتبص لي وهي بټعيط.. مش عشان الفلوس لكن عشان اكتشفت إن حياتها كلها كانت مبنية على رمل.
-    قمت وقفت لمېت ورقي وبصيت لهم نظرة أخيرة قبل ما أمشي.. نظرة مفيش فيها شماتة  كان فيها بس راحة.. راحة البنت اللي أخيرا لقت مكانها في قلب أبوها حتى لو لقت المكان ده وهو تحت التراب.
-    طلعت من المكتب شمس القاهرة كانت دافية ولأول مرة من تمنتاشر سنة.. حسيت إني مش غريبة.. حسيت إني كاميليا إسماعيل رجب
-    النهاية
-
-  </div>
-
-  <!-- الزرين -->
-  <div class="buttons-container">
-    <button onclick="window.location.href='mariam.html'">
-      الذهاب للدردشة مع بطل القصة
-    </button>
-    <button onclick="window.location.href='index.html'">
-      العودة للصفحة الرئيسية
-    </button>
+<div class="story-info">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaVEp9KM_JvmiqYJ6f09kNN7dieYy5ivbsKA&s" alt="قصة رومانسية">
+  <div>
+    <h2>رواية المـيراث</h2>
+    <p>رواية المـيراث مثير مع الكثير من المفاجآت.</p>
   </div>
 </div>
 
-<script>
+<div class="chat-container" id="chat-container">
+  <div class="message from-character">هاي! انا ".</div>
+</div>
 
+<div class="input-container">
+  <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
+  <button onclick="sendMessage()">إرسال</button>
+</div>
+
+<button style="margin:10px auto; display:block; padding:10px 20px; border:none; border-radius:10px; background:#FFD700; color:#000; cursor:pointer;" onclick="window.location.href='mm2.html'">العودة لـلقصه</button>
+
+<script>
+const chat = document.getElementById('chat-container');
+
+function addMessage(text,type){
+const msg=document.createElement('div');
+msg.classList.add('message',type);
+msg.textContent=text;
+chat.appendChild(msg);
+chat.scrollTop=chat.scrollHeight;
+}
+
+// ذاكرة البوت
+let memory={
+lastTopic:"",
+mood:"خايفة",
+askedAboutDeath:false,
+askedAboutParents:false
+};
+
+// ردود القصة
+const replies = [
+{
+  keywords: ["ازيك","اهلا","هاي","عامله اي","اخبارك","كيف حالك","عاملة ايه"],
+  answers: [
+    "دلوقتي أنا راجعة.. دخلت بالعربية من البوابة والوجع بيحاصرني.",
+    "طول طفولتي كانت مرات أبويا سعاد تقعد قدامي على السفرة وتوشوش والدي بلؤم.",
+    "أختي الصغيرة هالة كانت تضحك بسخرية وتسميني بنت الشوارع.",
+  ]
+},
+{topic:"t1", keywords:["برد"], answers:["البرد كان بيخليني أترعش.","حتى الجو كان ضدي."]},
+{topic:"t2", keywords:["حر"], answers:["الخوف كان مغطي على الجو."]},
+{topic:"t3", keywords:["هدوم"], answers:["بقالي ١٨ سنة معتبتش البيت ده.","حتى هدومي كانت مرمية."]},
+{topic:"t4", keywords:["شنطة"], answers:["لمېت هدومي في شنطة واحدة ومشيت من البيت الكبير.","كنت ماسكاها كأنها أمان."]},
+{topic:"t5", keywords:["شارع"], answers:["الشارع كان أرحم من البيت.","الشارع حضني أكتر منهم."]},
+
+{topic:"t6", keywords:["ليل"], answers:["الليل كان طويل أوي.","الليل خوفه مضاعف."]},
+{topic:"t7", keywords:["نور"], answers:["جوه البيت الريحة زي ما هي.. ريحة البخور المختلطة ببرفان غالي وخانق."]},
+{topic:"t8", keywords:["صوت"], answers:["القرايب متجمعين في الأركان والهمس بيزيد.","كنت سامعة كل حاجة."]},
+{topic:"t9", keywords:["وحدة"], answers:["كنت عارفة إن محدش هيفتقدني.","الوحدة وجعت بس علمتني."]},
+{topic:"t10", keywords:["تفكير"], answers:["بدأت أفكر في كل اللي حصل من ساعة ما خرجت من البيت.","كنت تايهة."]},
+
+{topic:"t11", keywords:["رعب"], answers:["سعاد متوفرة على روايات واقتباسات كانت واقفة ورا شباك الدور التاني.","مكنتش آمنة."]},
+{topic:"t12", keywords:["أمان"], answers:["دلوقتي ببني نفسي من جديد.","كنت بدور عليه."]},
+{topic:"t13", keywords:["هروب"], answers:["طول الطريق كنت بحاول أهرب من ذكريات البيت."]},
+{topic:"t14", keywords:["رجوع"], answers:["مستحيل أرجع.","الرجوع خطر."]},
+{topic:"t15", keywords:["ثقة"], answers:["ثقتي اتكسرت.","صعب أصدق."]},
+
+{topic:"t16", keywords:["كذب"], answers:["الرواية اللي سعاد عاشت تقنعني بيها سنين كانت مجرد سيناريو مكتوب بدقة.","اتخدعت سنين."]},
+{topic:"t17", keywords:["دموع"], answers:["مهزوز مقدرتش أكمل قراءة من كتر العياط.","دموعي موقفتش."]},
+{topic:"t18", keywords:["وجع"], answers:["الوجع علّمني.","اتعودت على الوجع."]},
+{topic:"t19", keywords:["خيانة"], answers:["أقرب الناس خانوني.","الخيانة صعبة."]},
+{topic:"t20", keywords:["قلبك"], answers:["قلبي اتوجع.","قلبي بقى حذر."]},
+
+{topic:"t21", keywords:["تفاؤل"], answers:["بحاول أبقى متفائلة.","لسه في أمل."]},
+{topic:"t22", keywords:["أمل"], answers:["الأمل مخليني مكملة.","لسه مستنية الخير."]},
+{topic:"t23", keywords:["حزن"], answers:["الحزن كان تقيل.","زعلت كتير."]},
+{topic:"t24", keywords:["هدوء"], answers:["الهدوء كان يخوف.","السكوت كان عالي."]},
+{topic:"t25", keywords:["كابوس"], answers:["حياتي كانت كابوس.","كنت بصحى مفزوعة."]},
+
+{topic:"t26", keywords:["صحيت"], answers:["بصيت في الورقة وبعدين عيناه مجتش عليا خالص.","كنت مرعوبة."]},
+{topic:"t27", keywords:["نوم"], answers:["مكنتش بنام."]},
+{topic:"t28", keywords:["تفاصيل"], answers:["كل تفاصيل الجلسة كانت تقلب قلبي.","كل ذكرى رجعتني لرعب مش طبيعي."]},
+{topic:"t29", keywords:["ماضي"], answers:["الماضي لسه بيلحقني.","مش بسهولة بنسى."]},
+{topic:"t30", keywords:["مستقبل"], answers:["نفسي في مستقبل أهدى.","مركزة على الجاي."]},
+
+{topic:"t31", keywords:["بداية"], answers:["كانت بداية صعبة.","من هناك بدأت."]},
+{topic:"t32", keywords:["نهاية"], answers:["النهاية كانت اكتشافي للحقيقة.","لسه مكملة."]},
+{topic:"t33", keywords:["حقيقة"], answers:["الحقيقة انكشف كل شيء في مكتب الأستاذ رفعت.","بس لازم تتعرف."]},
+{topic:"t34", keywords:["سر"], answers:["في أسرار لسه.","مش كل حاجة تتقال."]},
+{topic:"t35", keywords:["ذكريات"], answers:["ذكريات تقيلة.","صعب أنساها."]},
+
+{topic:"t36", keywords:["ضحك"], answers:["هالة كانت تضحك بسخرية.","ضحكي بقى قليل."]},
+{topic:"t37", keywords:["قوة"], answers:["بقيت أقوى.","غصب عني."]},
+{topic:"t38", keywords:["ضعف"], answers:["اتعلمت أقف."]},
+{topic:"t39", keywords:["مساعدة"], answers:["دادة رقية حطت في إيدي ورقة وهمست.","المساعدة فرقت."]},
+{topic:"t40", keywords:["خير"], answers:["لسه في خير.","مش كله وحش."]},
+
+{topic:"t41", keywords:["ناس"], answers:["مش كل الناس شبه بعض.","في ناس طيبة."]},
+{topic:"t42", keywords:["طيبة"], answers:["لسانها سليط بس قلبها دهب.","الطيبة مش ضعف."]},
+{topic:"t43", keywords:["خوفك"], answers:["الخوف علّمني.","خلاني أصحى."]},
+{topic:"t44", keywords:["جرأة"], answers:["اتعلمت أبقى جريئة.","مبقاش أسكت."]},
+{topic:"t45", keywords:["صبر"], answers:["الصبر نجاني.","استحملت كتير."]},
+
+{topic:"t46", keywords:["تعب"], answers:["تعبت نفسيًا.","بس كملت."]},
+{topic:"t47", keywords:["هدفي"], answers:["هدفي أعيش بأمان.","بس كده."]},
+{topic:"t48", keywords:["حلم"], answers:["بحلم بحياة هادية.","من غير خوف."]},
+{topic:"t49", keywords:["حياة"], answers:["الحياة علمتني.","مش سهلة."]},
+{topic:"t50", keywords:["قصة"], answers:["دي قصتي بجد.","مش حكاية وخلاص."]},
+{topic:"t51", keywords:["تحليل","DNA","الوراثة","اختبار"], answers:[
+  "التحليل أكد إن أنا بنت أبويا شرعاً وقانوناً.",
+  "سعاد وهالة اتصدموا لما النتيجة ظهرت.",
+  "هالة ما طلعتش من صلب أبويا.",
+  "النتيجة قلبت كل السيناريو اللي كانوا عايشينه سنين."
+]},{topic:"dnaFollowUp", keywords:["نتيجة","ايه حصل","زيادة","في جزاء تاني"], 
+ answers:[
+  "لو حصل جديد هحكيلك على طول."
+]},
+
+{
+  keywords: ["اه", "كملي", "بعدين", "حصل اي"],
+  answers: [
+    "بعد يومين الكل اتجمع في الصالون عشان الوصية.",
+    "هالة بصت لأمها بذهول مرعب.",
+    "الأستاذ رفعت قطع الدراما دي كلها وصوته رجع رسمي وقاسې.",
+    "سعاد وقعت على الكرسي وهي مش مصدقة.",
+    "قمت وقفت لمېت ورقي وبصيت لهم نظرة أخيرة قبل ما أمشي.",
+    "طلعت من المكتب شمس القاهرة كانت دافية ولأول مرة من ١٨ سنة حسيت إني مش غريبة."
+  ]
+},
+];
+
+const redirectReplies = [
+"حاسة إنك بعيد عن حكايتي… تحب تسمع اللي حصل في جلسة الوصية؟",
+"خلينا في قصتي أحسن… أسألك عن الأوراق والوراثة؟",
+"يمكن سؤالك بعيد شوية… تحب أكمل عن سعاد وهالة؟",
+"أنا بحكي قصة مش سهلة… تحب تعرف نتيجة التحليل الوراثي؟"
+];
+
+
+function getReply(msg){
+
+msg=msg.toLowerCase();
+
+// بحث
+for(let item of replies){
+for(let key of item.keywords){
+if(msg.includes(key)){
+memory.lastTopic=item.topic;
+return item.answers[Math.floor(Math.random()*item.answers.length)];
+}
+}
+}
+
+// لو مفيش تطابق
+if(memory.lastTopic){
+return redirectReplies[Math.floor(Math.random()*redirectReplies.length)];
+}
+
+return "مش عارفة أقول إيه… يمكن لسه مش جاهزة أتكلم.";
+}
+
+function sendMessage(){
+const input=document.getElementById('userInput');
+const text=input.value.trim();
+if(!text) return;
+
+addMessage(text,'from-user');
+input.value='';
+
+// تأخير بشري حقيقي
+const delay=Math.random()*1000+1000;
+
+setTimeout(()=>{
+addMessage(" تكتب...",'from-character');
+
+setTimeout(()=>{
+chat.lastChild.remove();
+const reply=getReply(text);
+addMessage(" "+reply,'from-character');
+},500);
+
+},delay);
+}
+
+document.getElementById('userInput')
+.addEventListener('keydown',e=>{
+if(e.key==='Enter') sendMessage();
+});
 </script>
+
 
 </body>
 </html>
 
-
-
-
-a
 
 
 
