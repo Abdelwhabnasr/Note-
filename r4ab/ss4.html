@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قصة رعب - دردشة</title>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قصة رعب - دردشة</title>
+
+<!-- هنا تحط الـ CSS بتاعك -->
+<style>
+  body {
+    font-family: 'Cairo', sans-serif;
+    margin: 0; padding: 0;
+    background: url('https://png.pngtree.com/thumb_back/fh260/background/20220801/pngtree-horror-woman-ghost-creepy-standing-at-the-house-photo-image_33039494.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #E0E0E0;
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .chat-container {
+    flex: 1; display: flex; flex-direction: column; padding: 20px;
+    width: 90%;        /* يخلي الدردشة responsive تلقائي */
+    max-width: 600px;
+    margin:10px auto; gap:15px;
+    overflow-y: auto; background: rgba(0,0,0,0.8); border-radius: 15px;
+    height: 70vh;     /* ارتفاع نسبي من الشاشة */
+    min-height: 300px; /* أقل ارتفاع */
+  }
+  .message {
+    max-width: 70%; padding: 10px 15px; border-radius: 15px;
+    word-wrap: break-word; font-size: 16px; line-height: 1.4;
+  }
+  .from-character { background: rgba(255,215,0,0.8); color:#000; align-self:flex-start; }
+  .from-user { background: rgba(50,50,50,0.8); color:#FFD700; align-self:flex-end; }
+
+  .input-container {
+    display:flex; justify-content:center; align-items:center; gap:10px;
+    padding:10px 20px; width:90%; max-width:600px; margin:0 auto 20px; background: rgba(0,0,0,0.6); border-radius:15px;
+  }
+  .input-container input { flex:1; padding:10px 15px; border-radius:10px; border:none; font-size:16px; color:white; background:black; }
+  .input-container button { padding:10px 20px; border-radius:10px; border:none; background: rgba(255,215,0,0.8); color:#000; font-weight:bold; cursor:pointer; }
+</style>
+
+</head>
+<body>
+
+<div class="chat-container" id="chat-container"></div>
+
+<div class="input-container">
+  <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
+  <button onclick="sendMessage()">إرسال</button>
+</div>
+
+<script>
+// هنا تحط كود الجافاسكربت بتاع الجن اللي عملناه قبل كده
+</script>
+
+</body>
+</html>
+
+</head>
+<body>
+
+
+
+
+
+<script>
+const chat = document.getElementById('chat-container');
+let userName = ""; 
+let askedName = false; 
+
+// أول رسالة: يسأل الاسم
+addMessage("…مين اسمك اي؟",'from-character');
+
+function addMessage(text, type){
+  const msg = document.createElement('div');
+  msg.classList.add('message', type);
+  msg.textContent = text;
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendMessage(){
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if(!text) return;
+
+  addMessage(text,'from-user');
+  input.value='';
+
+  setTimeout(()=>{
+    if(!askedName){
+      userName = text;
+      askedName = true;
+
+      // بداية الحوار المباشر مع المستخدم
+      addMessage(`تمام… ${userName}، جه الوقت تحس باللي حواليك.`, 'from-character');
+      setTimeout(()=>{ addMessage(`${userName}… الظلام مش مجرد غياب نور…`, 'from-character'); },1000);
+      setTimeout(()=>{ addMessage(`في صوت بعيد… لكن كأنه قريب منك، حسيت بيه؟`, 'from-character'); },2500);
+      setTimeout(()=>{ addMessage(`${userName}… كل حاجة حواليك مش زي ما كانت… ركز كويس.`, 'from-character'); },4000);
+      return;
+    }
+
+    // بعد معرفة الاسم: ردود مفتوحة وغامضة
+    const hour = new Date().getHours();
+    const replies = [
+      `${userName}… هل حاسس بحاجة غريبة؟`,
+      `متستغربش لو حسيت بشيء يلمسك وانت مش شايفه.`,
+      `أسمع؟ في حد بيتابعك دلوقتي، ${userName}.`,
+      `لو حاولت تتجاهل الصوت… هعرف، ${userName}.`,
+      `الليل كله بيترقب ردك، ${userName}.`,
+      `الظلال حواليك… تلاحظها؟`,
+      hour >= 2 && hour <= 4 ? `الوقت ده المفضل ليا، ${userName}.` : `استناني لما تنام، ${userName}.`
+    ];
+
+    let reply = replies[Math.floor(Math.random()*replies.length)];
+    addMessage(reply,'from-character');
+
+  },800);
+}
+
+// إرسال بالضغط على Enter
+document.getElementById('userInput').addEventListener('keydown', function(e){
+  if(e.key==='Enter'){ sendMessage(); }
+});
+
+// رسائل إضافية لتعزيز الغموض
+setTimeout(()=>{ 
+  if(askedName) addMessage(`${userName}… الصفحة دي مش عادية، حسيت بحاجة؟`, 'from-character'); 
+},30000);
+
+setTimeout(()=>{ 
+  if(askedName) addMessage(`${userName}… إنت لوحدك دلوقتي… ومش هتعرف تخرج.`, 'from-character'); 
+},60000);
+
+</script>
+</body>
+</html>
