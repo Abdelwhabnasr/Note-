@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دردشة مع مريم</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #chat-container { width: 400px; height: 500px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
+        #messages { flex: 1; padding: 20px; overflow-y: auto; border-bottom: 1px solid #eee; }
+        .message { margin-bottom: 15px; padding: 8px 12px; border-radius: 15px; max-width: 80%; }
+        .user { background: #007bff; color: white; align-self: flex-end; margin-right: auto; }
+        .mariam { background: #e9ecef; color: #333; align-self: flex-start; }
+        #input-area { display: flex; padding: 10px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
+        button { padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; margin-right: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div id="chat-container">
+    <div id="messages">
+        <div class="message mariam">أهلاً بك! أنا مريم، كيف يمكنني مساعدتك اليوم؟</div>
+    </div>
+    <div id="input-area">
+        <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
+        <button onclick="sendMessage()">إرسال</button>
+    </div>
+</div>
+
+<script type="importmap">
+  {
+    "imports": {
+      "@google/generative-ai": "https://esm.run/@google/generative-ai"
+    }
+  }
+</script>
+
+<script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+
+    // ⚠️ تحذير: ضع مفتاح الـ API الخاص بك هنا (للتجربة فقط، برمجياً يفضل استخدامه من سرفر لحمايته)
+    const API_KEY = "AIzaSyCuLFc8l2blySk4SXxrgIzM0WIA1w97uIY "; 
+    const genAI = new GoogleGenerativeAI(API_KEY);
+
+    const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        systemInstruction: "أنتِ مريم، مساعدة ذكية ولطيفة تتحدث باللهجة المصرية. ساعدي المستخدم بذكاء وأدب.",
+    });
+
+    let chat = model.startChat({ history: [] });
+
+    window.sendMessage = async async => {
+        const input = document.getElementById('userInput');
+        const text = input.value;
+        if (!text) return;
+
+        addMessage(text, 'user');
+        input.value = '';
+
+        try {
+            const result = await chat.sendMessage(text);
+            const response = await result.response;
+            addMessage(response.text(), 'mariam');
+        } catch (error) {
+            addMessage("عذراً، حدث خطأ ما. حاول مرة أخرى.", 'mariam');
+        }
+    }
+
+    function addMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('message', sender);
+        msgDiv.innerText = text;
+        document.getElementById('messages').appendChild(msgDiv);
+        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+    }
+</script>
+
+</body>
+</html>
