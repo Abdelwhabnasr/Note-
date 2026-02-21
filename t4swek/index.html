@@ -6,12 +6,12 @@
     <title>دردشة مع مريم</title>
     <style>
         body { font-family: sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        #chat-container { width: 400px; height: 500px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
-        #messages { flex: 1; padding: 20px; overflow-y: auto; border-bottom: 1px solid #eee; }
-        .message { margin-bottom: 15px; padding: 8px 12px; border-radius: 15px; max-width: 80%; }
-        .user { background: #007bff; color: white; align-self: flex-end; margin-right: auto; }
-        .mariam { background: #e9ecef; color: #333; align-self: flex-start; }
-        #input-area { display: flex; padding: 10px; }
+        #chat-container { width: 90%; max-width: 400px; height: 500px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
+        #messages { flex: 1; padding: 20px; overflow-y: auto; border-bottom: 1px solid #eee; display: flex; flex-direction: column; }
+        .message { margin-bottom: 15px; padding: 10px 15px; border-radius: 15px; max-width: 80%; word-wrap: break-word; }
+        .user { background: #007bff; color: white; align-self: flex-start; margin-left: auto; border-bottom-right-radius: 2px; }
+        .mariam { background: #e9ecef; color: #333; align-self: flex-end; margin-right: auto; border-bottom-left-radius: 2px; }
+        #input-area { display: flex; padding: 10px; background: #fff; }
         input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
         button { padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; margin-right: 5px; cursor: pointer; }
     </style>
@@ -24,7 +24,7 @@
     </div>
     <div id="input-area">
         <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
-        <button onclick="sendMessage()">إرسال</button>
+        <button id="sendBtn">إرسال</button>
     </div>
 </div>
 
@@ -39,20 +39,20 @@
 <script type="module">
     import { GoogleGenerativeAI } from "@google/generative-ai";
 
-    // ⚠️ تحذير: ضع مفتاح الـ API الخاص بك هنا (للتجربة فقط، برمجياً يفضل استخدامه من سرفر لحمايته)
-    const API_KEY = "AIzaSyCuLFc8l2blySk4SXxrgIzM0WIA1w97uIY "; 
+    // تم تنظيف المفتاح من المسافات الزائدة
+    const API_KEY = "AIzaSyCuLFc8l2blySk4SXxrgIzM0WIA1w97uIY"; 
     const genAI = new GoogleGenerativeAI(API_KEY);
 
     const model = genAI.getGenerativeModel({
         model: "gemini-1.5-flash",
-        systemInstruction: "أنتِ مريم، مساعدة ذكية ولطيفة تتحدث باللهجة المصرية. ساعدي المستخدم بذكاء وأدب.",
+        systemInstruction: "أنتِ مريم، مساعدة مصرية دمك خفيف وذكية جداً. تتحدثين باللهجة العامية المصرية بأسلوب ودود.",
     });
 
     let chat = model.startChat({ history: [] });
 
-    window.sendMessage = async async => {
+    async function handleSend() {
         const input = document.getElementById('userInput');
-        const text = input.value;
+        const text = input.value.trim();
         if (!text) return;
 
         addMessage(text, 'user');
@@ -63,16 +63,26 @@
             const response = await result.response;
             addMessage(response.text(), 'mariam');
         } catch (error) {
-            addMessage("عذراً، حدث خطأ ما. حاول مرة أخرى.", 'mariam');
+            console.error(error);
+            addMessage("يا خبر! حصلت مشكلة فنية، جرب تاني كمان شوية.", 'mariam');
         }
     }
+
+    // ربط الزر بالدالة
+    document.getElementById('sendBtn').addEventListener('click', handleSend);
+    
+    // إرسال الرسالة عند الضغط على Enter
+    document.getElementById('userInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSend();
+    });
 
     function addMessage(text, sender) {
         const msgDiv = document.createElement('div');
         msgDiv.classList.add('message', sender);
         msgDiv.innerText = text;
-        document.getElementById('messages').appendChild(msgDiv);
-        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+        const messagesContainer = document.getElementById('messages');
+        messagesContainer.appendChild(msgDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 </script>
 
