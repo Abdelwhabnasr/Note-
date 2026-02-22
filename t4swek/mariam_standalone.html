@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مريم - صديقتك الذكية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #fdfcfb; }
+        .chat-container { height: calc(100vh - 160px); }
+        .message-model { background-color: white; border: 1px solid #e5e1da; border-top-right-radius: 0; }
+        .message-user { background-color: #5A5A40; color: white; border-top-left-radius: 0; }
+        .dot-pulse { animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b border-[#e5e1da] shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#5A5A40] flex items-center justify-center text-white">
+                <i data-lucide="bot"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-[#1a1a1a]">مريم</h1>
+                <p class="text-xs text-[#5A5A40] flex items-center gap-1">
+                    <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                    متصلة الآن
+                </p>
+            </div>
+        </div>
+        <button onclick="clearChat()" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+            <i data-lucide="trash-2"></i>
+        </button>
+    </header>
+
+    <!-- API Key Modal (For Security on Static Hosting) -->
+    <div id="keyModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white p-6 rounded-2xl max-w-sm w-full shadow-xl">
+            <h2 class="text-lg font-bold mb-4">أدخل مفتاح Gemini API</h2>
+            <p class="text-sm text-gray-600 mb-4">لأغراض الأمان، يرجى إدخال مفتاحك الخاص. يتم حفظه في متصفحك فقط.</p>
+            <input type="password" id="apiKeyInput" class="w-full p-3 bg-gray-100 rounded-xl mb-4 outline-none border focus:border-[#5A5A40]" placeholder="AIzaSy...">
+            <button onclick="saveKey()" class="w-full bg-[#5A5A40] text-white py-3 rounded-xl font-bold">حفظ والبدء</button>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="block text-center text-xs text-blue-600 mt-4 underline">احصل على مفتاح مجاني من هنا</a>
+        </div>
+    </div>
+
+    <!-- Chat Messages -->
+    <main id="chatBox" class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 chat-container">
+        <div id="welcomeScreen" class="flex flex-col items-center justify-center h-full text-center space-y-4 max-w-md mx-auto">
+            <div class="w-20 h-20 rounded-full bg-[#f5f2ed] flex items-center justify-center text-[#5A5A40] mb-4">
+                <i data-lucide="sparkles" size="40"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-[#1a1a1a]">أهلاً بك! أنا مريم</h2>
+            <p class="text-[#6b6b6b]">أنا هنا لأدردش معك. كيف يمكنني مساعدتك اليوم؟</p>
+        </div>
+    </main>
+
+    <!-- Input -->
+    <footer class="p-4 md:p-6 bg-white border-t border-[#e5e1da]">
+        <div class="max-w-4xl mx-auto flex items-center gap-2">
+            <input type="text" id="userInput" onkeypress="if(event.key === 'Enter') sendMessage()" placeholder="اكتب رسالتك هنا..." class="flex-1 bg-[#f5f2ed] border-none rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-[#5A5A40]">
+            <button onclick="sendMessage()" id="sendBtn" class="p-4 bg-[#5A5A40] text-white rounded-2xl shadow-md hover:scale-105 active:scale-95 transition-all">
+                <i data-lucide="send" class="rotate-180"></i>
+            </button>
+        </div>
+    </header>
+
+    <script type="module">
+        import { GoogleGenerativeAI } from "https://esm.run/@google/generativeai";
+
+        let chat;
+        let apiKey = localStorage.getItem('GEMINI_API_KEY');
+
+        window.onload = () => {
+            lucide.createIcons();
+            if (!apiKey) {
+                document.getElementById('keyModal').classList.remove('hidden');
+            } else {
+                initChat();
+            }
+        };
+
+        window.saveKey = () => {
+            const val = document.getElementById('apiKeyInput').value;
+            if (val) {
+                localStorage.setItem('GEMINI_API_KEY', val);
+                apiKey = val;
+                document.getElementById('keyModal').classList.add('hidden');
+                initChat();
+            }
+        };
+
+        function initChat() {
+            const genAI = new GoogleGenerativeAI(apiKey);
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-1.5-flash",
+                systemInstruction: "أنتِ مريم، ذكاء اصطناعي ودودة ولطيفة تتحدث بالعربية."
+            });
+            chat = model.startChat({ history: [] });
+        }
+
+        window.sendMessage = async () => {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            if (!text || !chat) return;
+
+            input.value = '';
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            
+            appendMessage('user', text);
+            
+            const loadingId = appendLoading();
+            
+            try {
+                const result = await chat.sendMessage(text);
+                const response = await result.response;
+                removeLoading(loadingId);
+                appendMessage('model', response.text());
+            } catch (error) {
+                removeLoading(loadingId);
+                appendMessage('model', "عذراً، حدث خطأ. تأكد من صحة مفتاح الـ API.");
+                console.error(error);
+            }
+        };
+
+        function appendMessage(role, text) {
+            const chatBox = document.getElementById('chatBox');
+            const div = document.createElement('div');
+            div.className = `flex w-full gap-3 ${role === 'user' ? 'flex-row-reverse' : 'flex-row'}`;
+            
+            div.innerHTML = `
+                <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center mt-1 shadow-sm ${role === 'user' ? 'bg-[#e5e1da] text-[#5A5A40]' : 'bg-[#5A5A40] text-white'}">
+                    <i data-lucide="${role === 'user' ? 'user' : 'bot'}" size="16"></i>
+                </div>
+                <div class="max-w-[85%] px-4 py-3 rounded-2xl shadow-sm ${role === 'user' ? 'message-user' : 'message-model'}">
+                    <div class="text-sm md:text-base">${text}</div>
+                </div>
+            `;
+            chatBox.appendChild(div);
+            lucide.createIcons();
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function appendLoading() {
+            const id = 'loading-' + Date.now();
+            const chatBox = document.getElementById('chatBox');
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = "flex gap-3";
+            div.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-[#5A5A40] flex items-center justify-center text-white shadow-sm">
+                    <i data-lucide="bot" size="16"></i>
+                </div>
+                <div class="bg-white border border-[#e5e1da] px-4 py-3 rounded-2xl flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 bg-[#5A5A40] rounded-full animate-bounce"></span>
+                    <span class="w-1.5 h-1.5 bg-[#5A5A40] rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                    <span class="w-1.5 h-1.5 bg-[#5A5A40] rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
+                </div>
+            `;
+            chatBox.appendChild(div);
+            lucide.createIcons();
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return id;
+        }
+
+        function removeLoading(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        window.clearChat = () => {
+            document.getElementById('chatBox').innerHTML = '';
+            localStorage.removeItem('GEMINI_API_KEY');
+            location.reload();
+        };
+    </script>
+</body>
+</html>
