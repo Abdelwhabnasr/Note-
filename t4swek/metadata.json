@@ -1,0 +1,7 @@
+{
+  "name": "Mariam AI - مريم",
+  "description": "دردشة شخصية ذكية باسم مريم، مصممة لتكون رفيقتك الرقمية.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
