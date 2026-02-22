@@ -2,87 +2,54 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دردشة مع مريم</title>
+    <title>دردشة Gemini المجانية</title>
     <style>
-        body { font-family: sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        #chat-container { width: 90%; max-width: 400px; height: 500px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
-        #messages { flex: 1; padding: 20px; overflow-y: auto; border-bottom: 1px solid #eee; display: flex; flex-direction: column; }
-        .message { margin-bottom: 15px; padding: 10px 15px; border-radius: 15px; max-width: 80%; word-wrap: break-word; }
-        .user { background: #007bff; color: white; align-self: flex-start; margin-left: auto; border-bottom-right-radius: 2px; }
-        .mariam { background: #e9ecef; color: #333; align-self: flex-end; margin-right: auto; border-bottom-left-radius: 2px; }
-        #input-area { display: flex; padding: 10px; background: #fff; }
-        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
-        button { padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; margin-right: 5px; cursor: pointer; }
+        body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 20px; }
+        #chat-container { width: 100%; max-width: 500px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #messages { height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; display: flex; flex-direction: column; }
+        .user-msg { background: #007bff; color: white; align-self: flex-end; padding: 8px; border-radius: 10px; margin: 5px; }
+        .ai-msg { background: #e9e9eb; color: black; align-self: flex-start; padding: 8px; border-radius: 10px; margin: 5px; }
+        input { width: 80%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px; }
     </style>
 </head>
 <body>
 
 <div id="chat-container">
-    <div id="messages">
-        <div class="message mariam">أهلاً بك! أنا مريم، كيف يمكنني مساعدتك اليوم؟</div>
-    </div>
-    <div id="input-area">
-        <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
-        <button id="sendBtn">إرسال</button>
-    </div>
+    <h3>دردشة مع Gemini</h3>
+    <div id="messages"></div>
+    <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
+    <button onclick="sendMessage()">إرسال</button>
 </div>
 
-<script type="importmap">
-  {
-    "imports": {
-      "@google/generative-ai": "https://esm.run/@google/generative-ai"
-    }
-  }
-</script>
-
 <script type="module">
-    import { GoogleGenerativeAI } from "@google/generative-ai";
+    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-    // تم تنظيف المفتاح من المسافات الزائدة
-    const API_KEY = "AIzaSyCuLFc8l2blySk4SXxrgIzM0WIA1w97uIY"; 
+    const API_KEY = "AIzaSyDYc-RcOpcxlU5LKfTRk4QiwBKES-WnAhA"; // ضع مفتاحك هنا
     const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash",
-        systemInstruction: "أنتِ مريم، مساعدة مصرية دمك خفيف وذكية جداً. تتحدثين باللهجة العامية المصرية بأسلوب ودود.",
-    });
-
-    let chat = model.startChat({ history: [] });
-
-    async function handleSend() {
-        const input = document.getElementById('userInput');
-        const text = input.value.trim();
+    window.sendMessage = async async => {
+        const input = document.getElementById("userInput");
+        const messages = document.getElementById("messages");
+        const text = input.value;
         if (!text) return;
 
-        addMessage(text, 'user');
-        input.value = '';
+        // إظهار رسالة المستخدم
+        messages.innerHTML += `<div class="user-msg">${text}</div>`;
+        input.value = "";
 
         try {
-            const result = await chat.sendMessage(text);
+            const result = await model.generateContent(text);
             const response = await result.response;
-            addMessage(response.text(), 'mariam');
+            const aiText = response.text();
+            
+            // إظهار رد الذكاء الاصطناعي
+            messages.innerHTML += `<div class="ai-msg">${aiText}</div>`;
+            messages.scrollTop = messages.scrollHeight;
         } catch (error) {
-            console.error(error);
-            addMessage("يا خبر! حصلت مشكلة فنية، جرب تاني كمان شوية.", 'mariam');
+            messages.innerHTML += `<div class="ai-msg" style="color:red">خطأ: تأكد من مفتاح الـ API أو اتصالك.</div>`;
         }
-    }
-
-    // ربط الزر بالدالة
-    document.getElementById('sendBtn').addEventListener('click', handleSend);
-    
-    // إرسال الرسالة عند الضغط على Enter
-    document.getElementById('userInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleSend();
-    });
-
-    function addMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.classList.add('message', sender);
-        msgDiv.innerText = text;
-        const messagesContainer = document.getElementById('messages');
-        messagesContainer.appendChild(msgDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 </script>
 
