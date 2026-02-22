@@ -1,54 +1,36 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>دردشة Gemini المجانية</title>
-    <style>
-        body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 20px; }
-        #chat-container { width: 100%; max-width: 500px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        #messages { height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; display: flex; flex-direction: column; }
-        .user-msg { background: #007bff; color: white; align-self: flex-end; padding: 8px; border-radius: 10px; margin: 5px; }
-        .ai-msg { background: #e9e9eb; color: black; align-self: flex-start; padding: 8px; border-radius: 10px; margin: 5px; }
-        input { width: 80%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
-        button { padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px; }
-    </style>
-</head>
-<body>
-
-<div id="chat-container">
-    <h3>دردشة مع Gemini</h3>
-    <div id="messages"></div>
-    <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
-    <button onclick="sendMessage()">إرسال</button>
-</div>
-
 <script type="module">
-    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
-
-    const API_KEY = "AIzaSyDYc-RcOpcxlU5LKfTRk4QiwBKES-WnAhA"; // ضع مفتاحك هنا
-    const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    window.sendMessage = async async => {
+    window.sendMessage = async () => {
         const input = document.getElementById("userInput");
         const messages = document.getElementById("messages");
         const text = input.value;
         if (!text) return;
 
-        // إظهار رسالة المستخدم
         messages.innerHTML += `<div class="user-msg">${text}</div>`;
         input.value = "";
 
+        // الرابط الوسيط لتخطي حظر جوجل في مصر
+        const PROXY_URL = "https://corsproxy.io/?"; 
+        const API_KEY = "AIzaSyDYc-RcOpcxlU5LKfTRk4QiwBKES-WnAhA"; 
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
         try {
-            const result = await model.generateContent(text);
-            const response = await result.response;
-            const aiText = response.text();
+            const response = await fetch(PROXY_URL + encodeURIComponent(API_URL), {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: text }] }]
+                })
+            });
+
+            const data = await response.json();
+            // التأكد من استلام الرد بشكل صحيح
+            const aiText = data.candidates[0].content.parts[0].text;
             
-            // إظهار رد الذكاء الاصطناعي
             messages.innerHTML += `<div class="ai-msg">${aiText}</div>`;
             messages.scrollTop = messages.scrollHeight;
         } catch (error) {
-            messages.innerHTML += `<div class="ai-msg" style="color:red">خطأ: تأكد من مفتاح الـ API أو اتصالك.</div>`;
+            console.error(error);
+            messages.innerHTML += `<div class="ai-msg" style="color:red">حدث خطأ. تأكد من تشغيل VPN (لأنك في مصر) أو راجع المفتاح.</div>`;
         }
     }
 </script>
